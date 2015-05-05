@@ -149,6 +149,7 @@ $devh = null;
 $r = usb_init($context);
 if ($r != USB_SUCCESS) {
     die ('failed to usb_init(). ' . usb_error_name($r));
+    exit();
 }
 
 $devh = usb_open_device_with_vid_pid($context, $vid, $pid);
@@ -169,6 +170,7 @@ if ($r == 1) {
 $r = usb_claim_interface($devh, 0);
 if ($r < 0) {
   print 'claim interface failed' . PHP_EOL;
+  exit();
 }
 
 
@@ -178,6 +180,8 @@ transfer_ir($code, $devh, $ep);
 
 if ($devh) usb_close($devh);
 if ($context) usb_exit($context);
+
+
 
 //transfer($code, $devh, $ep);
 //$ep = 0x01;
